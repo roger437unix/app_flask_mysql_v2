@@ -21,30 +21,29 @@ mariadb -utux -p -h 127.0.0.1 db_users
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import create_engine, text
 import os
+from credenciais import db_config
 
 app = Flask(__name__)
 
-user = 'tux'
-pw   = 'ABC123xyz'
-url  = '127.0.0.1'     
-db = 'db_users'
+user = db_config['user']
+pw   = db_config['password']
+url  = db_config['host']     
+db   = db_config['database']
 
-try:
-    # Connect to the database
-    engine = create_engine(f"mysql+mysqlconnector://{user}:{pw}@{url}/{db}")    
-    connection = engine.connect()
 
-    query_create_table = '''
-    CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
-    fone VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL
-    );
-    '''
-    connection.execute(text(f"{query_create_table}"))
-except:
-    print("Falha ao conectar no Banco de dados")
+# Connect to the database
+engine = create_engine(f"mysql+mysqlconnector://{user}:{pw}@{url}/{db}")    
+connection = engine.connect()
+
+query_create_table = '''
+CREATE TABLE IF NOT EXISTS users (
+id INT AUTO_INCREMENT PRIMARY KEY,
+nome VARCHAR(50) NOT NULL,
+fone VARCHAR(50) NOT NULL,
+email VARCHAR(50) NOT NULL
+);
+'''
+connection.execute(text(f"{query_create_table}"))
 
 
 def select():
