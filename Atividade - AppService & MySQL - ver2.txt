@@ -1,0 +1,129 @@
+
+😃 Serviço de Aplicativo integrado ao Servidor de Banco de dados do Azure - MySQL 😃
+
+
+Obs.: Usando variáveis de ambiente
+
+
+Ver: 01/11/2024
+
+
+-------------------------------------------------------------------------------------------
+
+
+0. Crie um servidor de banco de dados na Azure [Servidores do Banco de Dados do Azure para MySQL]
+
+  - User: <QUALQUER>
+ 
+  - Password: <QUALQUER QUE NÃO USE O CARACTER '@'>
+
+
+Obs.: Sugestão: 
+
+  User: tux
+  Pass: ABC123xyz
+
+
+▶ Na guia Rede
+ 
+  ▶ Regras de Firewall
+
+    ▶ + Adicionar 0.0.0.0 – 255.255.255.255
+
+
+0.1 Faça uma conexão ao servidor de banco de dados MySQL para criar um novo banco de dados.
+
+CREATE DATABASE db_users;
+
+
+-------------------------------------------------------------------------------------------
+
+
+[Windows Environment]
+
+
+🍀 Em uma nova pasta, abrir o Git Bash.
+
+
+⚽ 1. Clonar do Github a aplicação que será utilizada.
+
+git clone https://github.com/roger437unix/app_flask_mysql_v3.git
+
+
+
+⚽ 2. Dentro da pasta gerada pela clonagem, criar e ativar um ambiente virtual Python.
+
+cd app_flask_mysql_v2
+
+python -m venv .venv                 
+
+source .venv/Scripts/activate         
+
+
+
+⚽ 3. Instalar os requisitos da aplicação [módulos do Python].
+
+pip install -r requirements.txt
+
+
+
+⚽ 4. Criar as variáveis de ambiente no S.O. e testar a aplicação localmente.
+
+export     USER="<DATABASE_USER>"
+export PASSWORD="<DATABASE_USER_PASSWORD>"
+export     HOST="<DATABASE_ADDRESS>"
+
+python app.py
+
+
+-------------------------------------------------------------------------------------------
+
+
+🍊 5. Criar serviço de aplicativo do Azure [Aplicatico Web] para fazer o deploy da aplicação usando o VSCode.
+
+
+  ▶ Publicar: Código
+
+  ▶ Pilha de runtime: Python 3.12
+
+
+
+Obs.: Após o serviço de aplicativo ser provisionado criar as variáveis de ambiente:
+
+▶ Menu Configurações => variáveis de ambiente => configurações de aplicativo
+
+USER 		<DATABASE_USER>
+PASSWORD 	<DATABASE_USER_PASSWORD>
+HOST		<DATABASE_ADDRESS>
+
+
+-------------------------------------------------------------------------------------------
+
+
+credenciais.py
+
+import os, sys
+
+USER     = os.getenv('USER')
+PASSWORD = os.getenv('PASSWORD')
+HOST     = os.getenv('HOST')
+
+if USER is not None and PASSWORD is not None and HOST is not None:
+  db_config = {
+    'host': HOST,
+    'user': USER,
+    'password': PASSWORD,
+    'database': 'db_users'
+  }
+else:
+  print(f'\n*** The enviroment variables "USER", "PASSWORD" and "HOST" are empty ***\n')
+  print(f'Execute no Git Bash:\n')
+  print(f'export USER     = "<DATABASE_USER>"')
+  print(f'export PASSWORD = "<DATABASE_USER_PASSWORD>"')
+  print(f'export HOST     = "<DATABASE_ADDRESS>"\n')
+  sys.exit()
+
+
+-------------------------------------------------------------------------------------------
+
+
