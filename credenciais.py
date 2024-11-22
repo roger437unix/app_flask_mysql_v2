@@ -14,7 +14,7 @@ if USER is not None and PASS is not None and HOST is not None:
 else:
   print(f'\n*** The enviroment variables "USER", "PASS" and "HOST" are empty ***\n')
   print(f'Execute no terminal:\n')
-  print(f'export USER = "<DATABASE_USER>"')
-  print(f'export PASS = "<DATABASE_USER_PASSWORD>"')
-  print(f'export HOST = "<DATABASE_ADDRESS>"\n')
+  print(f'export USER="<DATABASE_USER>"')
+  print(f'export PASS="<DATABASE_USER_PASSWORD>"')
+  print(f'export HOST="<DATABASE_ADDRESS>"\n')
   sys.exit()  
