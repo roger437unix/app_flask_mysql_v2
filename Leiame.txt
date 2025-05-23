@@ -32,3 +32,10 @@ source .venv/Scripts/activate   [Windows]
 5. Instalar libs
 
 pip install -r requirements.txt
+
+
+6. Criar variáveis de ambiente no Powershell
+
+$env:USER="tux"
+$env:USER
+
