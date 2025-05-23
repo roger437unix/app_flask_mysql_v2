@@ -39,11 +39,18 @@ mariadb -utux -p -h 127.0.0.1 db_users
 *pip install -r requirements.txt*
 
 
-### 6. Executar a aplicação
+
+### 6. Criar variáveis de ambiente no Powershell
+
+$env:USER="tux"
+$env:USER
+
+
+### 7. Executar a aplicação
 
 *python app.py*
 
 
-### 7. Para sair do ambiente virtual Python
+### 8. Para sair do ambiente virtual Python
 
 *deactivate*
