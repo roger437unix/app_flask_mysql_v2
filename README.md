@@ -43,6 +43,9 @@ mariadb -utux -p -h 127.0.0.1 db_users
 ### 6. Criar variáveis de ambiente no Powershell
 
 $env:USER="tux"
+
+#### Para Visualizar
+
 $env:USER
 
 
